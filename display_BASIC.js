@@ -32,12 +32,12 @@ async function run() {
 
     // Writing the query results to the response
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write("<h2>Hello World</h2>");
+    res.write("<h2>Hello World yo in main area</h2>");
     res.write("Success! This app is deployed online");
 
     // Displaying the query results in the HTML response
-    res.write("<h3>Query Results:</h3>");
-    res.write("<pre>" + JSON.stringify(query, null, 2) + "</pre>");
+    //res.write("<h3>Query Results:</h3>");
+    //res.write("<pre>" + JSON.stringify(query, null, 2) + "</pre>");
 
     res.end();
   } catch (err) {
