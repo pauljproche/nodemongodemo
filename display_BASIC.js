@@ -30,16 +30,7 @@ async function run() {
     console.log("Documents in the 'taskCard' collection:");
     console.log(query);
 
-    // Writing the query results to the response
-    res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write("<h2>Hello World yo in main area</h2>");
-    res.write("Success! This app is deployed online");
-
-    // Displaying the query results in the HTML response
-    //res.write("<h3>Query Results:</h3>");
-    //res.write("<pre>" + JSON.stringify(query, null, 2) + "</pre>");
-
-    res.end();
+    return query;
   } catch (err) {
     console.log("Error:", err);
   } finally {
@@ -48,15 +39,28 @@ async function run() {
   }
 }
 
-run().catch(console.dir);
-
 const port = process.env.PORT || 3000;
 
-http.createServer(function (req, res) {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write("<h2>Hello World</h2>");
-  res.write("Success! This app is deployed online");
-  res.end();
+http.createServer(async function (req, res) {
+  if (req.url === '/') {
+    try {
+      const queryResult = await run();
+
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      res.write("<h2>Hello World</h2>");
+      res.write("Success! This app is deployed online");
+
+      // Displaying the query results in the HTML response
+      res.write("<h3>Query Results:</h3>");
+      res.write("<pre>" + JSON.stringify(queryResult, null, 2) + "</pre>");
+
+      res.end();
+    } catch (err) {
+      res.writeHead(500, { 'Content-Type': 'text/html' });
+      res.write("An error occurred while fetching data from MongoDB.");
+      res.end();
+    }
+  }
 }).listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
