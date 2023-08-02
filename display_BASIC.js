@@ -29,26 +29,6 @@ async function run() {
 
     console.log("Documents in the 'taskCard' collection:");
     console.log(query);
-
-    // Prepare the query results for display in the HTML response
-    let queryResultsHtml = "<h3>Query Results:</h3><ul>";
-    query.forEach((result) => {
-      queryResultsHtml += `<li>Title: ${result.title}, Author: ${result.author}</li>`;
-    });
-    queryResultsHtml += "</ul>";
-
-    // Start the HTTP server and respond with the HTML page
-    const port = process.env.PORT || 3000;
-
-    http.createServer(function (req, res) {
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.write("<h2>Hello World</h2>");
-      res.write("Success! This app is deployed online");
-      res.write(queryResultsHtml); // Output the query results
-      res.end();
-    }).listen(port, () => {
-      console.log(`Server running on port ${port}`);
-    });
   } catch (err) {
     console.log("Error:", err);
   } finally {
@@ -58,3 +38,14 @@ async function run() {
 }
 
 run().catch(console.dir);
+
+const port = process.env.PORT || 3000;
+
+http.createServer(function (req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.write("<h2>Hello World</h2>");
+  res.write("Success! This app is deployed online");
+  res.end();
+}).listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
