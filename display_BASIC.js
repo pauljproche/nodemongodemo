@@ -31,9 +31,14 @@ async function run() {
     console.log(query);
 
     // Writing the query results to the response
-    const responseData = JSON.stringify(query);
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.write(responseData);
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write("<h2>Hello World</h2>");
+    res.write("Success! This app is deployed online");
+
+    // Displaying the query results in the HTML response
+    res.write("<h3>Query Results:</h3>");
+    res.write("<pre>" + JSON.stringify(query, null, 2) + "</pre>");
+
     res.end();
   } catch (err) {
     console.log("Error:", err);
