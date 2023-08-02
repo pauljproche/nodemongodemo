@@ -29,6 +29,12 @@ async function run() {
 
     console.log("Documents in the 'taskCard' collection:");
     console.log(query);
+
+    // Writing the query results to the response
+    const responseData = JSON.stringify(query);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.write(responseData);
+    res.end();
   } catch (err) {
     console.log("Error:", err);
   } finally {
