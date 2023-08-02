@@ -14,7 +14,7 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-
+/*
     //(REF b - See HOWTO.md):
     //get the database and collection
     const database = client.db("taskConnect");
@@ -24,9 +24,9 @@ async function run() {
     // toArray() optional - It converts returned query (aka:cursor/pointer) into an array of documents 
     // and displays things cleaner.
     let query = await collection.find({}).toArray();
-
+*/
     console.log("Documents in the 'taskCard' collection:");
-    console.log(query);
+ //   console.log(query);
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
