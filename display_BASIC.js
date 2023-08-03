@@ -33,7 +33,6 @@ async function run() {
     return query;
   } catch (err) {
     console.log("Error:", err);
-    throw err; // Rethrow the error to handle it in the server handler
   } finally {
     // Ensures that the client will close when you finish/error
     await client.close();
@@ -43,7 +42,6 @@ async function run() {
 const port = process.env.PORT || 3000;
 
 http.createServer(async function (req, res) {
-  console.log("Received request:", req.url);
   if (req.url === '/') {
     try {
       const queryResult = await run();
@@ -58,7 +56,6 @@ http.createServer(async function (req, res) {
 
       res.end();
     } catch (err) {
-      console.log("Error in query:", err);
       res.writeHead(500, { 'Content-Type': 'text/html' });
       res.write("An error occurred while fetching data from MongoDB.");
       res.end();
