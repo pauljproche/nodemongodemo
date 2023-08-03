@@ -27,6 +27,9 @@ async function run() {
     // and displays things cleaner.
     const query = await collection.find({}).toArray();
 
+    console.log("Documents in the 'taskCard' collection:");
+    console.log(query);
+
     return query;
   } catch (err) {
     console.log("Error:", err);
@@ -44,9 +47,6 @@ http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
       const queryResult = await run();
-
-      console.log("Documents in the 'taskCard' collection:");
-      console.log(queryResult);
 
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
