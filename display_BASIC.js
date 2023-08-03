@@ -18,8 +18,9 @@ async function run() {
     const collection = database.collection("taskCard");
 
     const query = await collection.find({}).toArray();
-
-    return query;
+    const queryString = JSON.stringify(query, null, 2);
+    res.write(queryString);
+    res.end();
   } catch (err) {
     console.log("Error in MongoDB query:", err);
     throw err;
@@ -33,7 +34,7 @@ const port = process.env.PORT || 3000;
 http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
-      const queryResult = await run();
+      //const queryResult = await run();
 
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
