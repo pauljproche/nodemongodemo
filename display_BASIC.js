@@ -34,7 +34,7 @@ http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
       res.write("<h2>queryResult waiting...</h2>");
-      //const queryResult = await run();
+      const queryResult = await run();
 
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
