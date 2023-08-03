@@ -19,8 +19,7 @@ async function run() {
 
     const query = await collection.find({}).toArray();
     const queryString = JSON.stringify(query, null, 2);
-    res.write(queryString);
-    res.end();
+    return queryString;
   } catch (err) {
     console.log("Error in MongoDB query:", err);
     throw err;
