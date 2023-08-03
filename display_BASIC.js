@@ -44,15 +44,15 @@ const port = process.env.PORT || 3000;
 http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
-      const queryResult = await run();
-
+      /*
+      const queryResult = await run();*/
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
       res.write("Success! This app is deployed online");
 
       // Displaying the query results in the HTML response
-      res.write("<h3>Query Results:</h3>");
-      res.write("<pre>" + JSON.stringify(queryResult, null, 2) + "</pre>");
+      /*res.write("<h3>Query Results:</h3>");
+      res.write("<pre>" + JSON.stringify(queryResult, null, 2) + "</pre>");*/
 
       res.end();
     } catch (err) {
