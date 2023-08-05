@@ -1,16 +1,10 @@
- const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const http = require('http');
 
 const uri = "mongodb+srv://taskconnect2:V02gss7wWBeSd47M@cluster0.szozfpl.mongodb.net/?retryWrites=true&w=majority";
 
 async function run() {
-  const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
+  const client = new MongoClient(uri);
 
   try {
     await client.connect();
@@ -18,8 +12,7 @@ async function run() {
     const collection = database.collection("taskCard");
 
     const query = await collection.find({}).toArray();
-    const queryString = JSON.stringify(query, null, 2);
-    return queryString;
+    return JSON.stringify(query, null, 2);
   } catch (err) {
     console.log("Error in MongoDB query:", err);
     throw err;
@@ -33,7 +26,7 @@ const port = process.env.PORT || 3000;
 http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
-      //const queryResult = await run();
+      const queryResult = await run();
 
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
@@ -41,7 +34,7 @@ http.createServer(async function (req, res) {
 
       // Displaying the query results in the HTML response
       res.write("<h3>Query Results:</h3>");
-      //res.write("<pre>" + JSON.stringify(queryResult, null, 2) + "</pre>");
+      res.write("<pre>" + queryResult + "</pre>");
 
       res.end();
     } catch (err) {
