@@ -1,12 +1,12 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient } = require('mongodb');
 const http = require('http');
 
-const uri = "mongodb+srv://taskconnect2:V02gss7wWBeSd47M@cluster0.szozfpl.mongodb.net/?retryWrites=true&w=majority";
+const uri = process.env.MONGO_URI;
 
 async function run() {
   const client = new MongoClient(uri, {
     serverApi: {
-      version: ServerApiVersion.v1,
+      version: '1',
       strict: true,
       deprecationErrors: true,
     },
@@ -41,7 +41,7 @@ http.createServer(async function (req, res) {
 
       // Displaying the query results in the HTML response
       res.write("<h3>Query Results:</h3>");
-      res.write("<pre>" + JSON.stringify(queryResult, null, 2) + "</pre>");
+      res.write("<pre>" + queryResult + "</pre>");
 
       res.end();
     } catch (err) {
