@@ -6,7 +6,7 @@ const uri = "mongodb+srv://taskconnect2:V02gss7wWBeSd47M@cluster0.szozfpl.mongod
 async function run() {
   const client = new MongoClient(uri, {
     serverApi: {
-      version: 1,
+      version: ServerApiVersion.v1,
       strict: true,
       deprecationErrors: true,
     },
