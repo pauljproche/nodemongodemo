@@ -9,7 +9,7 @@ async function run() {
     await client.connect();
     const database = client.db("taskConnect");
     const collection = database.collection("taskCard");
-    const query = await collection.find({}).toArray();
+    const query = await collection.findOne({}); // Changed from find to findOne
     return JSON.stringify(query, null, 2);
   } catch (err) {
     console.log("Error in MongoDB query:", err);
@@ -29,7 +29,7 @@ http.createServer(async function (req, res) {
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
       res.write("Success! This app is deployed online");
-      res.write("<h3>Query Results:</h3>");
+      res.write("<h3>Query Result:</h3>"); // Updated label to singular
       res.write("<pre>" + queryResult + "</pre>");
       res.end();
     } catch (err) {
