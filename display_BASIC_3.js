@@ -2,7 +2,6 @@ const { MongoClient } = require('mongodb');
 const http = require('http');
 
 const uri = "mongodb+srv://taskconnect2:V02gss7wWBeSd47M@cluster0.szozfpl.mongodb.net/?retryWrites=true&w=majority";
-
 async function run() {
   const client = new MongoClient(uri);
 
