@@ -21,19 +21,37 @@ async function run() {
   }
 }
 
+const getFirstTaskCard = async () => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("taskConnect");
+    const collection = database.collection("taskCard");
+
+    const query = await collection.findOne({});
+    return JSON.stringify(query, null, 2);
+  } catch (err) {
+    console.log("Error in MongoDB query:", err);
+    throw err;
+  } finally {
+    await client.close();
+  }
+};
+
 const port = process.env.PORT || 3000;
 
 http.createServer(async function (req, res) {
   if (req.url === '/') {
     try {
-      const queryResult = await run();
+      const queryResult = await getFirstTaskCard();
 
       res.writeHead(200, { 'Content-Type': 'text/html' });
       res.write("<h2>Hello World</h2>");
       res.write("Success! This app is deployed online");
 
       // Displaying the query results in the HTML response
-      res.write("<h3>Query Results:</h3>");
+      res.write("<h3>First Task Card:</h3>");
       res.write("<pre>" + queryResult + "</pre>");
 
       res.end();
